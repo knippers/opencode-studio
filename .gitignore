@@ -35,3 +35,4 @@ Thumbs.db
 
 # Changeset (version management - optional)
 .changeset/
+package-lock.json

@@ -395,6 +395,7 @@
     "opencodeFree": "OpenCode (무료)",
     "directProviderWarningBefore": "직접 연결하는 공급자는 인증이 필요합니다. 다음을 실행하세요:",
     "directProviderWarningAfter": "그런 다음 공급자를 선택하세요.",
+    "greenptHint": "GreenPT는 개인정보 보호를 우선하며 재생 에너지로 운영됩니다. opencode auth login을 실행하고 GreenPT를 선택한 뒤 API 키를 입력하세요.",
     "starterkitStep4": "4. OpenCode 재시작",
     "whatYouGet": "제공되는 기능",
     "stabilityFixes": "안정성 수정",
@@ -1072,14 +1073,9 @@
     "landing": {
       "subtitle": "시각적 인터페이스로 OpenCode 설정을 관리하세요",
       "launchBackend": "백엔드 실행",
-      "setupRequired": "설정 필요",
-      "step1Title": "1. OpenCode AI 설치",
-      "step2Title": "2. Studio 서버 설치",
-      "importantPrefix": "중요: 설치 후 한 번",
-      "importantSuffix": "명령을 실행해 설정을 초기화하세요.",
       "github": "GitHub",
       "npm": "npm",
-      "notConnectingPrefix": "연결되지 않나요? 다음을 시도해 보세요:",
+      "connectionFailed": "백엔드에 연결할 수 없습니다. 백엔드가 실행 중인지 확인한 뒤 다시 시도하세요.",
       "waiting": "백엔드 연결을 기다리는 중..."
     }
   }

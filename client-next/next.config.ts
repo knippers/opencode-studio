@@ -24,8 +24,29 @@ const securityHeaders = [
   },
 ];
 
+// Where the backend listens from the GUI's point of view (same container or host).
+// Read at build time: Next.js stores rewrites in the build output.
+const BACKEND_INTERNAL_URL = process.env.BACKEND_INTERNAL_URL ?? "http://127.0.0.1:1920";
+
+// Extra hosts allowed to load dev resources (HMR websocket, /_next/*) when the GUI is
+// opened from a LAN IP or custom hostname. Comma-separated, no protocol/port.
+// Example: NEXT_ALLOWED_DEV_ORIGINS=192.168.0.99
+const ALLOWED_DEV_ORIGINS = (process.env.NEXT_ALLOWED_DEV_ORIGINS ?? "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
 const nextConfig: NextConfig = {
   output: "standalone",
+  ...(ALLOWED_DEV_ORIGINS.length > 0 ? { allowedDevOrigins: ALLOWED_DEV_ORIGINS } : {}),
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: `${BACKEND_INTERNAL_URL}/api/:path*`,
+      },
+    ];
+  },
   async headers() {
     return [
       {

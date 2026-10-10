@@ -95,32 +95,6 @@ function DisconnectedLanding({ isFirstLoad }: { isFirstLoad: boolean }) {
               {t('landing.launchBackend')}
             </Button>
           </div>
-          
-          <div className={`space-y-4 mt-2 ${isFirstLoad ? "landing-delay-4" : "landing-delay-fast-4"}`}>
-            <div className="space-y-2 text-left bg-muted/30 p-4 rounded-xl border border-border/50 shadow-sm">
-              <p className="text-[10px] uppercase tracking-wider font-bold text-muted-foreground">{t('landing.setupRequired')}</p>
-              
-              <div className="space-y-1">
-                <p className="text-xs font-medium">{t('landing.step1Title')}</p>
-                <code className="text-[11px] block bg-background border border-border p-2 rounded font-mono break-all">
-                  npm install -g opencode-ai
-                </code>
-              </div>
-
-              <div className="space-y-1">
-                <p className="text-xs font-medium">{t('landing.step2Title')}</p>
-                <code className="text-[11px] block bg-background border border-border p-2 rounded font-mono break-all">
-                  npm install -g opencode-studio-server@2.4.2
-                </code>
-              </div>
-
-              <div className="pt-2 border-t border-border/30">
-                <p className="text-[10px] text-primary/70 font-semibold italic">
-                  {t('landing.importantPrefix')} <code className="bg-background px-1 rounded not-italic">opencode --version</code> {t('landing.importantSuffix')}
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div className={`flex items-center gap-4 text-sm text-muted-foreground ${isFirstLoad ? "landing-delay-5" : "landing-delay-fast-5"}`}>
@@ -149,7 +123,7 @@ function DisconnectedLanding({ isFirstLoad }: { isFirstLoad: boolean }) {
       <div className={`absolute bottom-4 text-xs text-muted-foreground ${isFirstLoad ? "landing-delay-6" : "landing-delay-fast-6"}`}>
         {showUpdateHint ? (
           <span className="animate-fade-in">
-            {t('landing.notConnectingPrefix')} <code className="bg-muted px-1.5 py-0.5 rounded">npm install -g opencode-studio-server@2.4.2</code>
+            {t('landing.connectionFailed')}
           </span>
         ) : (
           t('landing.waiting')

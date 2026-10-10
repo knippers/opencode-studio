@@ -3627,6 +3627,7 @@ app.get('/api/auth/providers', (req, res) => {
         { id: 'mistral', name: 'Mistral AI', type: 'api', description: 'Mistral models' },
         { id: 'deepseek', name: 'DeepSeek', type: 'api', description: 'DeepSeek models' },
         { id: 'groq', name: 'Groq', type: 'api', description: 'LPU Inference' },
+        { id: 'greenpt', name: 'GreenPT', type: 'api', description: 'Privacy-first AI on renewable energy' },
         { id: 'amazon-bedrock', name: 'AWS Bedrock', type: 'api', description: 'Amazon Bedrock' },
         { id: 'azure', name: 'Azure OpenAI', type: 'api', description: 'Azure OpenAI' }
     ];
@@ -3644,6 +3645,7 @@ app.get('/api/auth', (req, res) => {
         { id: 'mistral', name: 'Mistral AI', type: 'api' },
         { id: 'deepseek', name: 'DeepSeek', type: 'api' },
         { id: 'groq', name: 'Groq', type: 'api' },
+        { id: 'greenpt', name: 'GreenPT', type: 'api' },
         { id: 'amazon-bedrock', name: 'AWS Bedrock', type: 'api' },
         { id: 'azure', name: 'Azure OpenAI', type: 'api' }
     ];
@@ -3704,7 +3706,7 @@ app.get('/api/auth', (req, res) => {
 });
 
 app.get('/api/auth/profiles', (req, res) => {
-    const providers = ['google', 'anthropic', 'openai', 'xai', 'openrouter', 'together', 'mistral', 'deepseek', 'amazon-bedrock', 'azure', 'github-copilot'];
+    const providers = ['google', 'anthropic', 'openai', 'xai', 'openrouter', 'together', 'mistral', 'deepseek', 'greenpt', 'amazon-bedrock', 'azure', 'github-copilot'];
     providers.forEach(p => importCurrentAuthToPool(p));
     syncAntigravityPool();
     
@@ -5610,7 +5612,7 @@ async function startServer() {
         process.exit(1);
     }
 
-    ['google', 'anthropic', 'openai', 'xai', 'openrouter', 'together', 'mistral', 'deepseek', 'amazon-bedrock', 'azure', 'github-copilot'].forEach(p => importCurrentAuthToPool(p));
+    ['google', 'anthropic', 'openai', 'xai', 'openrouter', 'together', 'mistral', 'deepseek', 'greenpt', 'amazon-bedrock', 'azure', 'github-copilot'].forEach(p => importCurrentAuthToPool(p));
 
     const port = await findAvailablePort(DEFAULT_PORT);
     app.listen(port, '127.0.0.1', () => {

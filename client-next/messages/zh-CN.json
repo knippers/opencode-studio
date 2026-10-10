@@ -395,6 +395,7 @@
     "opencodeFree": "OpenCode (\u514d\u8d39)",
     "directProviderWarningBefore": "\u76f4\u8fde\u63d0\u4f9b\u5546\u9700\u8981\u8ba4\u8bc1\u3002\u8bf7\u8fd0\u884c",
     "directProviderWarningAfter": "\u5e76\u9009\u62e9\u4f60\u7684\u63d0\u4f9b\u5546\u3002",
+    "greenptHint": "GreenPT 注重隐私，使用可再生能源运行。运行 opencode auth login，选择 GreenPT 并输入你的 API 密钥。",
     "starterkitStep4": "4. \u91cd\u542f OpenCode",
     "whatYouGet": "\u4f60\u5c06\u83b7\u5f97",
     "stabilityFixes": "\u7a33\u5b9a\u6027\u4fee\u590d",
@@ -1076,14 +1077,9 @@
     "landing": {
       "subtitle": "\u901a\u8fc7\u53ef\u89c6\u5316\u754c\u9762\u7ba1\u7406\u4f60\u7684 OpenCode \u914d\u7f6e",
       "launchBackend": "\u542f\u52a8\u540e\u7aef",
-      "setupRequired": "\u9700\u8981\u914d\u7f6e",
-      "step1Title": "1. \u5b89\u88c5 OpenCode AI",
-      "step2Title": "2. \u5b89\u88c5 Studio \u670d\u52a1\u5668",
-      "importantPrefix": "\u91cd\u8981\uff1a\u5b89\u88c5\u540e\u8fd0\u884c",
-      "importantSuffix": "\u4e00\u6b21\u4ee5\u521d\u59cb\u5316\u914d\u7f6e\u3002",
       "github": "GitHub",
       "npm": "npm",
-      "notConnectingPrefix": "\u65e0\u6cd5\u8fde\u63a5\uff1f\u8bf7\u5c1d\u8bd5:",
+      "connectionFailed": "无法连接到后端。请确认后端正在运行后重试。",
       "waiting": "\u7b49\u5f85\u540e\u7aef\u8fde\u63a5..."
     }
   }

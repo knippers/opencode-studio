@@ -395,6 +395,7 @@
     "opencodeFree": "OpenCode (free)",
     "directProviderWarningBefore": "Direct providers require authentication. Run",
     "directProviderWarningAfter": "and select your provider.",
+    "greenptHint": "GreenPT is privacy-first and runs on renewable energy. Run opencode auth login, choose GreenPT, and enter your API key.",
     "starterkitStep4": "4. Restart OpenCode",
     "whatYouGet": "What You Get",
     "stabilityFixes": "Stability Fixes",
@@ -1072,14 +1073,9 @@
     "landing": {
       "subtitle": "Manage your OpenCode configuration with a visual interface",
       "launchBackend": "Launch Backend",
-      "setupRequired": "Setup Required",
-      "step1Title": "1. Install OpenCode AI",
-      "step2Title": "2. Install Studio Server",
-      "importantPrefix": "Important: Run",
-      "importantSuffix": "once after install to initialize your configuration.",
       "github": "GitHub",
       "npm": "npm",
-      "notConnectingPrefix": "Not connecting? Try:",
+      "connectionFailed": "Cannot connect to the backend. Make sure it is running, then try again.",
       "waiting": "Waiting for backend connection..."
     }
   }

@@ -98,6 +98,14 @@ function ExternalLinkButton({ href, children }: { href: string; children: React.
   );
 }
 
+// GreenPT model IDs used for each model family when GreenPT is selected
+const GREENPT_MODELS = {
+  claude: "glm-5.3",
+  gpt: "green-r",
+  gemini: "gemma4",
+  grok: "green-l",
+} as const;
+
 // --- Main Page Component ---
 
 export default function QuickstartPage() {
@@ -109,7 +117,7 @@ export default function QuickstartPage() {
     starterkit: false,
   });
   
-  type Provider = "github-copilot" | "anthropic" | "openai" | "google" | "opencode";
+  type Provider = "github-copilot" | "anthropic" | "openai" | "google" | "opencode" | "greenpt";
   const [providerChoices, setProviderChoices] = useState<{
     claude: Provider;
     gpt: Provider;
@@ -129,10 +137,11 @@ export default function QuickstartPage() {
   const t = useTranslations('quickstart');
 
   const ohmyopencodeConfig = useMemo(() => {
-    const claudePrefix = providerChoices.claude === "github-copilot" ? "github-copilot/" : "anthropic/";
-    const gptPrefix = providerChoices.gpt === "github-copilot" ? "github-copilot/" : "openai/";
-    const geminiPrefix = providerChoices.gemini === "github-copilot" ? "github-copilot/" : "google/";
-    const grokPrefix = providerChoices.grok === "github-copilot" ? "github-copilot/" : "opencode/";
+    const resolveModel = (choice: Provider, family: keyof typeof GREENPT_MODELS, fallbackPrefix: string, fallbackModel: string) => {
+      if (choice === "greenpt") return `greenpt/${GREENPT_MODELS[family]}`;
+      if (choice === "github-copilot") return `github-copilot/${fallbackModel}`;
+      return `${fallbackPrefix}${fallbackModel}`;
+    };
     
     const geminiModel = providerChoices.gemini === "github-copilot" ? "gemini-3-pro-preview" : "gemini-3-pro-high";
     const geminiFlash = providerChoices.gemini === "github-copilot" ? "gemini-3-flash-preview" : "gemini-3-flash";
@@ -141,13 +150,13 @@ export default function QuickstartPage() {
     
     return JSON.stringify({
       agents: {
-        "Sisyphus": { model: `${claudePrefix}claude-opus-4.5` },
-        "oracle": { model: `${gptPrefix}gpt-5.2` },
-        "librarian": { model: `${claudePrefix}claude-sonnet-4.5` },
-        "frontend-ui-ux-engineer": { model: `${geminiPrefix}${geminiModel}` },
-        "document-writer": { model: `${geminiPrefix}${geminiFlash}` },
-        "multimodal-looker": { model: `${geminiPrefix}${multimodalModel}` },
-        "explore": { model: `${grokPrefix}${grokModel}` }
+        "Sisyphus": { model: resolveModel(providerChoices.claude, "claude", "anthropic/", "claude-opus-4.5") },
+        "oracle": { model: resolveModel(providerChoices.gpt, "gpt", "openai/", "gpt-5.2") },
+        "librarian": { model: resolveModel(providerChoices.claude, "claude", "anthropic/", "claude-sonnet-4.5") },
+        "frontend-ui-ux-engineer": { model: resolveModel(providerChoices.gemini, "gemini", "google/", geminiModel) },
+        "document-writer": { model: resolveModel(providerChoices.gemini, "gemini", "google/", geminiFlash) },
+        "multimodal-looker": { model: resolveModel(providerChoices.gemini, "gemini", "google/", multimodalModel) },
+        "explore": { model: resolveModel(providerChoices.grok, "grok", "opencode/", grokModel) }
       }
     }, null, 2);
   }, [providerChoices]);
@@ -156,6 +165,8 @@ export default function QuickstartPage() {
     providerChoices.gpt === "openai" || 
     providerChoices.gemini === "google" ||
     providerChoices.grok === "opencode";
+
+  const hasGreenPT = Object.values(providerChoices).includes("greenpt");
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -320,6 +331,7 @@ export default function QuickstartPage() {
                         <SelectContent>
                           <SelectItem value="github-copilot">{t('githubCopilot')}</SelectItem>
                           <SelectItem value="anthropic">Anthropic</SelectItem>
+                          <SelectItem value="greenpt">GreenPT</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -333,6 +345,7 @@ export default function QuickstartPage() {
                         <SelectContent>
                           <SelectItem value="github-copilot">{t('githubCopilot')}</SelectItem>
                           <SelectItem value="openai">OpenAI</SelectItem>
+                          <SelectItem value="greenpt">GreenPT</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -346,6 +359,7 @@ export default function QuickstartPage() {
                         <SelectContent>
                           <SelectItem value="github-copilot">{t('githubCopilot')}</SelectItem>
                           <SelectItem value="google">Google</SelectItem>
+                          <SelectItem value="greenpt">GreenPT</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -359,6 +373,7 @@ export default function QuickstartPage() {
                         <SelectContent>
                           <SelectItem value="github-copilot">{t('githubCopilot')}</SelectItem>
                           <SelectItem value="opencode">{t('opencodeFree')}</SelectItem>
+                          <SelectItem value="greenpt">GreenPT</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -367,6 +382,10 @@ export default function QuickstartPage() {
                 
                 <CodeBlock code={ohmyopencodeConfig} />
                 
+                {hasGreenPT && (
+                  <p className="text-xs text-muted-foreground mt-2">{t('greenptHint')}</p>
+                )}
+
                 {hasDirectProvider && (
                   <div className="flex items-start gap-2 p-2 bg-amber-500/10 border border-amber-500/20 rounded-md mt-2">
                     <Alert className="h-3.5 w-3.5 text-amber-500 shrink-0 mt-0.5" />

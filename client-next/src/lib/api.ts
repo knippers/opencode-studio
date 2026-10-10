@@ -88,7 +88,7 @@ async function discoverBackendPort(): Promise<string> {
     if (resolvingApiUrl) return resolvingApiUrl;
 
     resolvingApiUrl = (async () => {
-        const preferred = [envApiUrl, getBrowserApiUrl(), DEFAULT_API_URL].filter(Boolean) as string[];
+        const preferred = [envApiUrl, getSameOriginApiUrl(), DEFAULT_API_URL].filter(Boolean) as string[];
         for (const candidate of preferred) {
             const ok = await probeBackendUrl(candidate);
             if (ok) {
@@ -123,14 +123,10 @@ const CLIENT_VERSION = process.env.NEXT_PUBLIC_APP_VERSION || '1.17.0';
 
 const DEFAULT_API_URL = 'http://127.0.0.1:1920/api';
 
-// Guess the backend from the page the user is viewing: same host, backend port,
-// same protocol. Works when the container exposes the backend port next to the GUI.
-function getBrowserApiUrl(): string | null {
+// Same-origin API path. The GUI's port proxies /api to the backend (see rewrites in next.config.ts).
+function getSameOriginApiUrl(): string | null {
   if (typeof window === 'undefined') return null;
-  // window.location.hostname already keeps brackets for IPv6 literals (e.g. "[::1]").
-  const { protocol, hostname } = window.location;
-  if (!hostname) return null;
-  return `${protocol}//${hostname}:${BACKEND_BASE_PORT}/api`;
+  return `${window.location.origin}/api`;
 }
 
 const api = axios.create({
@@ -147,7 +143,7 @@ api.interceptors.request.use(async (config) => {
     const url = await discoverBackendPort();
     config.baseURL = url;
   } catch {
-    config.baseURL = config.baseURL || envApiUrl || getBrowserApiUrl() || DEFAULT_API_URL;
+    config.baseURL = config.baseURL || envApiUrl || getSameOriginApiUrl() || DEFAULT_API_URL;
   }
 
   const requestUrl = new URL(config.url ?? '', config.baseURL).toString();
@@ -172,7 +168,7 @@ export async function getApiBaseUrl(): Promise<string> {
     api.defaults.baseURL = url;
     return url;
   } catch {
-    return api.defaults.baseURL || envApiUrl || getBrowserApiUrl() || DEFAULT_API_URL;
+    return api.defaults.baseURL || envApiUrl || getSameOriginApiUrl() || DEFAULT_API_URL;
   }
 }
 

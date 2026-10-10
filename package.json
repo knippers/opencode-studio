@@ -2,6 +2,15 @@
   "name": "opencode-studio-server",
   "version": "2.4.5",
   "private": false,
+  "description": "OpenCode Studio (fork of Microck/opencode-studio, original author: Microck)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/knippers/opencode-studio.git"
+  },
+  "homepage": "https://github.com/knippers/opencode-studio#readme",
+  "bugs": {
+    "url": "https://github.com/knippers/opencode-studio/issues"
+  },
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "cd server && npm start",

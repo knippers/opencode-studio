@@ -1,7 +1,7 @@
 {
   "name": "opencode-studio-server",
   "version": "2.4.5",
-  "description": "Backend server for OpenCode Studio - manages opencode configurations",
+  "description": "Backend server for OpenCode Studio - manages opencode configurations. Fork of Microck/opencode-studio.",
   "main": "index.js",
   "bin": {
     "opencode-studio-server": "cli.js"
@@ -21,13 +21,17 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Microck/opencode-studio.git"
+    "url": "git+https://github.com/knippers/opencode-studio.git"
+  },
+  "homepage": "https://github.com/knippers/opencode-studio#readme",
+  "bugs": {
+    "url": "https://github.com/knippers/opencode-studio/issues"
   },
   "type": "commonjs",
   "dependencies": {
-    "body-parser": "^2.2.1",
-    "cors": "^2.8.5",
-    "express": "^5.2.1",
+    "body-parser": "^2.3.0",
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
     "js-yaml": "^4.1.1",
     "jsonc-parser": "^3.3.1"
   }
