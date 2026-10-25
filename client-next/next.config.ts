@@ -38,6 +38,8 @@ const ALLOWED_DEV_ORIGINS = (process.env.NEXT_ALLOWED_DEV_ORIGINS ?? "")
 
 const nextConfig: NextConfig = {
   output: "standalone",
+  // Trace from this folder, not the monorepo root, so the standalone server lands at .next/standalone/server.js.
+  outputFileTracingRoot: __dirname,
   ...(ALLOWED_DEV_ORIGINS.length > 0 ? { allowedDevOrigins: ALLOWED_DEV_ORIGINS } : {}),
   async rewrites() {
     return [
